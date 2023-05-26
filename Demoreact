@@ -1,0 +1,21 @@
+import React, { useState } from 'react';
+
+const App = () => {
+  const [isBackgroundWhite, setIsBackgroundWhite] = useState(true);
+
+  const handleToggle = () => {
+    setIsBackgroundWhite(!isBackgroundWhite);
+  };
+
+  const backgroundColor = isBackgroundWhite ? 'white' : 'lightblue';
+
+  return (
+    <div style={{ backgroundColor }}>
+      <h1>Background Color Toggler</h1>
+      <button onClick={handleToggle}>Toggle Background Color</button>
+    </div>
+  );
+};
+
+export default App;
+
