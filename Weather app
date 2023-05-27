@@ -1,0 +1,52 @@
+import React, { useState, useEffect } from 'react';
+
+const WeatherApp = () => {
+  const [weatherData, setWeatherData] = useState(null);
+  const apiKey = 'bd5e378503939ddaee76f12ad7a97608'; 
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${apiKey}`
+        );
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+
+    fetchWeatherData();
+  }, []);
+
+  if (!weatherData) {
+    return <div>Loading...</div>;
+  }
+
+  const { main, weather, wind } = weatherData;
+  const { temp, humidity } = main;
+  const { speed } = wind;
+  const { description } = weather[0];
+
+  return (
+    <div>
+      <h1>Weather Forecast</h1>
+      <div>
+        <strong>Temperature:</strong> {temp}°C
+      </div>
+      <div>
+        <strong>Humidity:</strong> {humidity}%
+      </div>
+      <div>
+        <strong>Wind Speed:</strong> {speed} m/s
+      </div>
+      <div>
+        <strong>Description:</strong> {description}
+      </div>
+    </div>
+  );
+};
+
+export default WeatherApp;
+
